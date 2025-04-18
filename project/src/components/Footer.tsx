@@ -16,9 +16,7 @@ const Footer = () => {
           </div>
           <div>
             <h3 className="mb-4 text-xl font-bold text-[#FFD700]">Hours</h3>
-            <p className="text-zinc-400">Monday - Friday: 9AM - 9PM</p>
-            <p className="text-zinc-400">Saturday: 10AM - 8PM</p>
-            <p className="text-zinc-400">Sunday: 11AM - 6PM</p>
+            <p className="text-zinc-400">Saturday–Thursday: 4 PM – 12 AM</p>
           </div>
           <div>
             <h3 className="mb-4 text-xl font-bold text-[#FFD700]">Follow Us</h3>
