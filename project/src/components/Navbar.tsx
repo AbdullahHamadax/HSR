@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import logo from "../images/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +46,7 @@ const Navbar = () => {
             transition={{ duration: 0.5 }}
           >
             <NavLink to="/" className="flex items-center space-x-2">
-              <img src="src/images/logo.png" className="w-12" alt="Logo" />
+              <img src={logo} className="w-12" alt="Logo" />
               <span className="text-xl font-bold text-[#FFD700]">
                 Hunting Shooting Range
               </span>
