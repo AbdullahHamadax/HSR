@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #ff3333;
+  --primary-dark: #cc0000;
+}
+
+body {
+  @apply bg-zinc-900 text-zinc-100;
+}
+
+.hero-parallax {
+  @apply relative min-h-screen overflow-hidden;
+}
+
+.hero-content {
+  @apply relative z-10;
+}
+
+.nav-link {
+  @apply text-zinc-300 hover:text-white transition-colors;
+}
+
+.nav-link.active {
+  @apply text-primary;
+}
+
+.btn-primary {
+  @apply bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-md transition-colors;
+}
+
+.section-title {
+  @apply text-4xl font-bold mb-8 text-white;
+}
+
+.card {
+  @apply bg-zinc-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow;
+}
