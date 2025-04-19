@@ -4,14 +4,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import {
-  Award,
-  Calendar,
-  ChevronDown,
-  Shield,
-  Target,
-  Users,
-} from "lucide-react";
+import { Award, Calendar, Shield, Target, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import gun from "../images/AK-47.svg";
@@ -132,13 +125,6 @@ const Home = () => {
                 Become a Member
               </Link>
             </motion.div>
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute transform -translate-x-1/2 bottom-8 left-1/2"
-          >
-            <ChevronDown className="w-8 h-8 text-white" />
           </motion.div>
         </motion.div>
       </section>
