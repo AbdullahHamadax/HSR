@@ -233,10 +233,7 @@ const Home = () => {
                 </Link>
               </div>
             </div>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="overflow-hidden rounded-lg shadow-lg"
-            >
+            <motion.div className="overflow-hidden rounded-lg shadow-lg">
               <img
                 src={banner2}
                 alt="Shooting Range Facility"
