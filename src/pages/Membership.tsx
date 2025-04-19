@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Baby, Check, Crosshair, Shield, Star, Target } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Membership() {
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
@@ -222,7 +223,9 @@ function Membership() {
                 whileTap="tap"
                 variants={cardVariants}
                 animate={selectedTier === index ? "selected" : "normal"}
-                onClick={() => setSelectedTier(index)}
+                onClick={() =>
+                  setSelectedTier(index === selectedTier ? null : index)
+                }
                 className={`relative flex flex-col h-full p-6 rounded-lg cursor-pointer ${
                   tier.isPopular
                     ? "border-2 border-[#B22222]"
@@ -277,6 +280,14 @@ function Membership() {
                     </li>
                   ))}
                 </ul>
+
+                <Link
+                  to="/contact"
+                  className="block w-full py-3 text-center font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Inquire About This Plan
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -328,6 +339,14 @@ function Membership() {
                     </li>
                   ))}
                 </ul>
+
+                <Link
+                  to="/contact"
+                  className="block w-full py-3 text-center font-medium text-white transition duration-300 bg-[#1E90FF] rounded-md hover:bg-[#FFD700] hover:text-black"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Inquire About Children's Program
+                </Link>
               </motion.div>
             ))}
 
@@ -391,6 +410,14 @@ function Membership() {
                 "This program aims to foster happiness and excitement among
                 children while teaching valuable skills in a safe environment."
               </p>
+
+              <Link
+                to="/contact"
+                className="block w-full py-3 mt-6 text-center font-medium text-white transition duration-300 bg-[#1E90FF] rounded-md hover:bg-[#FFD700] hover:text-black"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Contact Us About Children's Programs
+              </Link>
             </motion.div>
           </div>
         )}
@@ -438,6 +465,14 @@ function Membership() {
                     </li>
                   ))}
                 </ul>
+
+                <Link
+                  to="/contact"
+                  className="block w-full py-3 text-center font-medium text-white transition duration-300 bg-[#4682B4] rounded-md hover:bg-[#FFD700] hover:text-black"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Book This Option
+                </Link>
               </motion.div>
             ))}
           </div>
