@@ -478,13 +478,7 @@ function Membership() {
           </div>
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mt-20"
-        >
+        <div className="mt-20">
           <h2 className="mb-8 text-3xl font-bold text-center text-[#FFD700]">
             Frequently Asked Questions
           </h2>
@@ -521,20 +515,16 @@ function Membership() {
                 answer:
                   "Yes, we offer spring rifle shooting (15 rounds) ranging from 200-300 EGP based on the floor level. An additional fee of 100 EGP applies for using rifles with Red Dot Sight.",
               },
-            ].map((faq, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -3 }}
-                className="p-6 rounded-lg border border-zinc-800 bg-[#1C1C1C]"
-              >
+            ].map((faq) => (
+              <div className="p-6 rounded-lg border border-zinc-800 bg-[#1C1C1C]">
                 <h3 className="mb-3 text-xl font-semibold text-[#FFD700]">
                   {faq.question}
                 </h3>
                 <p className="text-zinc-400">{faq.answer}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
