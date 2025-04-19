@@ -242,7 +242,6 @@ const Home = () => {
                 <Link
                   to="/membership"
                   className="px-6 py-3 text-lg font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black"
-                  onClick={() => window.scrollTo(0, 0)}
                 >
                   View Membership Options
                 </Link>
