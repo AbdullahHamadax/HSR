@@ -151,7 +151,7 @@ function Contact() {
           <ContactInfo
             icon={Clock}
             title="Hours"
-            content="Mon-Fri: 9AM-9PM, Sat: 10AM-8PM, Sun: 11AM-6PM"
+            content="Saturday - Thursday: 4PM - 12AM"
           />
         </div>
       </section>
