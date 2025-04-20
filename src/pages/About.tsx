@@ -9,7 +9,7 @@ import {
   UserPlus,
 } from "lucide-react";
 
-import bannerImage from "../images/banner3.jpg";
+import bannerImage from "../images/banner3.webp";
 
 function About() {
   const visionItems = [

@@ -8,8 +8,8 @@ import { Award, Calendar, Shield, Target, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import gun from "../images/AK-47.svg";
-import banner from "../images/banner.jpg";
-import banner2 from "../images/banner2.jpg";
+import banner from "../images/banner.webp";
+import banner2 from "../images/banner2.webp";
 
 const Home = () => {
   const shouldReduceMotion = useReducedMotion();
