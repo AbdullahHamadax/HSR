@@ -4,9 +4,11 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { Award, Calendar, Shield, Target, Users } from "lucide-react";
+import { Award, Calendar, Star, Target, Users } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import ReviewForm from "../components/ReviewForm";
 import gun from "../images/AK-47.svg";
 import banner from "../images/banner.webp";
 import banner2 from "../images/banner2.webp";
@@ -14,6 +16,8 @@ import banner2 from "../images/banner2.webp";
 const Home = () => {
   const shouldReduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
+  // eslint-disable-next-line no-empty-pattern
+  const [] = useState(0);
 
   const leftGunY = useTransform(scrollY, [0, 500], [0, -200]);
   const rightGunY = useTransform(scrollY, [0, 500], [0, -150]);
@@ -22,16 +26,64 @@ const Home = () => {
   const textOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
   const textY = useTransform(scrollY, [0, 300], [0, 50]);
 
+  // Optimized card variants with faster animation
   const cardVariants = {
-    hidden: { y: shouldReduceMotion ? 0 : 50, opacity: 0 },
+    hidden: { y: shouldReduceMotion ? 0 : 20, opacity: 0 },
     visible: (i: number) => ({
       y: 0,
       opacity: 1,
       transition: {
-        delay: i * 0.2,
-        duration: 0.5,
+        delay: i * 0.1, // Reduced delay between animations
+        duration: 0.3, // Reduced duration
       },
     }),
+  };
+
+  const testimonials = [
+    {
+      name: "Ahmed H.",
+      rating: 5,
+      text: "The instructors are world-class. I've improved my accuracy by 40% since joining. The safety protocols give me peace of mind while training.",
+      position: "Member for 8 months",
+    },
+    {
+      name: "Abeer I.",
+      rating: 5,
+      text: "As a beginner, I was nervous at first, but the patient instructors and supportive community made me feel welcome. Now I can't imagine my weekends without HSR!",
+      position: "Member for 3 months",
+    },
+    {
+      name: "Omar K.",
+      rating: 4,
+      text: "Professional training with real-world applications. The facilities are top-notch and the community is incredibly supportive. Highly recommend for all skill levels.",
+      position: "Member for 1 year",
+    },
+  ];
+
+  const stats = [
+    { value: 2000, label: "Active Members", icon: Users },
+    { value: 4.8, label: "Star Rating", icon: Star, decimal: true },
+    { value: 250, label: "Training Hours", icon: Target },
+    { value: 15, label: "Certified Instructors", icon: Award },
+  ];
+
+  const renderStars = (rating: number) => {
+    return Array(5)
+      .fill(0)
+      .map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.05 * i, duration: 0.2 }} // Faster star animations
+        >
+          <Star
+            fill={i < rating ? "#FFD700" : "none"}
+            stroke={i < rating ? "#FFD700" : "#6b7280"}
+            className="w-5 h-5"
+          />
+        </motion.div>
+      ));
   };
 
   return (
@@ -129,7 +181,40 @@ const Home = () => {
         </motion.div>
       </section>
 
-      <section className="py-20 bg-black">
+      <section className="py-12">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.3 }} // Faster animation
+                className="flex flex-col items-center justify-center p-4 text-center"
+              >
+                <div className="p-3 mb-4 rounded-full bg-[#B22222]/20">
+                  <stat.icon className="w-6 h-6 text-[#FFD700]" />
+                </div>
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }} // Faster animation
+                  className="mb-1 text-4xl font-bold text-[#FFD700]"
+                >
+                  {stat.decimal ? stat.value : stat.value.toLocaleString()}
+                </motion.span>
+                <span className="text-sm font-medium text-zinc-400">
+                  {stat.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 border-t border-zinc-800 bg-[#1C1C1C]">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -138,55 +223,64 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="mb-12 text-3xl font-bold text-center text-white md:text-4xl"
           >
-            Why Choose Us
+            What Our Members Say
           </motion.h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {[
-              {
-                icon: Shield,
-                title: "Safety First",
-                content:
-                  "We prioritize your safety with certified instructors and secure facilities, ensuring a controlled environment.",
-                iconColor: "text-[#FFD700]",
-              },
-              {
-                icon: Target,
-                title: "Professional Training",
-                content:
-                  "Structured programs from beginner to advanced, with real-world application in mind.",
-                iconColor: "text-[#B22222]",
-              },
-              {
-                icon: Users,
-                title: "Community",
-                content:
-                  "Train, connect, and grow with fellow enthusiasts in a supportive community.",
-                iconColor: "text-[#B22222]",
-              },
-            ].map((card, i) => (
-              <motion.div
-                key={i}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={cardVariants}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 10px 25px -5px rgba(255, 215, 0, 0.1)",
-                }}
-                className="p-6 rounded-lg shadow-md bg-[#1C1C1C]"
-              >
-                <card.icon className={`w-12 h-12 mb-4 ${card.iconColor}`} />
-                <h3 className="mb-2 text-xl font-bold">{card.title}</h3>
-                <p className="text-zinc-400">{card.content}</p>
-              </motion.div>
-            ))}
+
+          <div className="relative mt-10">
+            <div className="relative flex overflow-hidden">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                {testimonials.map((testimonial, i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    variants={cardVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                    whileHover={{
+                      scale: 1.03,
+                      transition: { duration: 0.2 }, // Fast hover animation
+                      boxShadow: "0 10px 25px -5px rgba(255, 215, 0, 0.1)",
+                    }}
+                    className="flex flex-col p-6 bg-black border rounded-lg shadow-lg border-zinc-800"
+                  >
+                    <div className="flex mb-4">
+                      {renderStars(testimonial.rating)}
+                    </div>
+                    <p className="mb-6 italic text-zinc-300">
+                      "{testimonial.text}"
+                    </p>
+                    <div className="mt-auto">
+                      <p className="font-bold text-white">{testimonial.name}</p>
+                      <p className="text-sm text-zinc-400">
+                        {testimonial.position}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }} // Reduced delay
+            className="mt-12 text-center"
+          >
+            <a
+              href="#leave-review"
+              className="px-6 py-3 text-lg font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black inline-flex items-center"
+            >
+              <Star className="w-5 h-5 mr-2" fill="#FFD700" />
+              Share Your Experience
+            </a>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-20 border-t-2">
+      <section className="py-20 border-t border-zinc-800">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center grid-cols-1 gap-12 md:grid-cols-2">
             <div>
@@ -242,6 +336,32 @@ const Home = () => {
               />
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Review Form Section */}
+      <section
+        id="leave-review"
+        className="py-20 border-t border-zinc-800 bg-black/30"
+      >
+        <div className="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center"
+          >
+            <h2 className="mb-4 text-3xl font-bold text-[#FFD700] md:text-4xl">
+              Share Your Experience
+            </h2>
+            <p className="max-w-2xl mx-auto text-xl text-zinc-300">
+              Your feedback helps us improve and guides others in their shooting
+              journey.
+            </p>
+          </motion.div>
+
+          <ReviewForm productName="Hunting Shooting Range" />
         </div>
       </section>
     </div>

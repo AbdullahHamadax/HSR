@@ -5,12 +5,14 @@ import React, { useRef, useState } from "react";
 interface FormState {
   name: string;
   email: string;
+  phone: string; // Added phone field
   message: string;
 }
 
 interface Errors {
   name?: string;
   email?: string;
+  phone?: string; // Added phone field
   message?: string;
 }
 
@@ -41,6 +43,7 @@ function Contact() {
   const [formState, setFormState] = useState<FormState>({
     name: "",
     email: "",
+    phone: "", // Added phone field with empty initial value
     message: "",
   });
   const [errors, setErrors] = useState<Errors>({});
@@ -73,6 +76,11 @@ function Contact() {
       newErrors.email = "Email is invalid";
     }
 
+    // Phone validation - optional but if provided, must be valid
+    if (formState.phone.trim() && !/^\+?\d{10,15}$/.test(formState.phone)) {
+      newErrors.phone = "Please enter a valid phone number";
+    }
+
     if (!formState.message.trim()) {
       newErrors.message = "Message is required";
     }
@@ -97,6 +105,7 @@ function Contact() {
           body: JSON.stringify({
             name: formState.name,
             email: formState.email,
+            phone: formState.phone,
             message: formState.message,
           }),
         });
@@ -105,7 +114,7 @@ function Contact() {
           throw new Error("Failed to submit form");
         }
 
-        setFormState({ name: "", email: "", message: "" });
+        setFormState({ name: "", email: "", phone: "", message: "" });
         setSubmitSuccess(true);
         setTimeout(() => setSubmitSuccess(false), 5000);
       } catch (error) {
@@ -176,6 +185,7 @@ function Contact() {
                 type="text"
                 id="name"
                 name="name"
+                placeholder="Ahmed Abdallah"
                 autoComplete="name"
                 value={formState.name}
                 onChange={handleChange}
@@ -198,6 +208,7 @@ function Contact() {
                 type="email"
                 id="email"
                 name="email"
+                placeholder="youremail@email.com"
                 autoComplete="email"
                 value={formState.email}
                 onChange={handleChange}
@@ -211,6 +222,29 @@ function Contact() {
             </div>
             <div>
               <label
+                htmlFor="phone"
+                className="block mb-2 text-sm font-medium text-zinc-300"
+              >
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                autoComplete="tel"
+                placeholder="+20 12345678910"
+                value={formState.phone}
+                onChange={handleChange}
+                className={`w-full px-4 py-2 border rounded-md bg-[#1C1C1C] border-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#FFD700] ${
+                  errors.phone ? "border-[#B22222]" : ""
+                }`}
+              />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-[#B22222]">{errors.phone}</p>
+              )}
+            </div>
+            <div>
+              <label
                 htmlFor="message"
                 className="block mb-2 text-sm font-medium text-zinc-300"
               >
@@ -219,6 +253,7 @@ function Contact() {
               <textarea
                 id="message"
                 name="message"
+                placeholder="Type your message here...."
                 rows={4}
                 value={formState.message}
                 onChange={handleChange}
