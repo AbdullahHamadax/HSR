@@ -1,5 +1,6 @@
-import { Facebook, Instagram } from "lucide-react";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 
+import { FaTiktok } from "react-icons/fa6";
 const Footer = () => {
   return (
     <footer className="bg-black border-t border-[#B22222] py-8">
@@ -25,15 +26,25 @@ const Footer = () => {
                 href="https://www.facebook.com/hsregypt?mibextid=ZbWKwL"
                 className="text-[#EFEFEF] hover:text-[#FFD700]"
                 aria-label="Visit our Facebook page"
+                target="_blank"
               >
-                <Facebook className="w-6 h-6" />
+                <FaFacebookF className="size-6" />
               </a>
               <a
                 href="https://www.instagram.com/hunting_shooting_range?fbclid=IwY2xjawJsekNleHRuA2FlbQIxMAABHiDZhpb-ePDnrA9uKfoWwtrbj9jdWej3TtJTXjk34ydMucD4P-94v0PracoK_aem_5YpmgD7DFO7SD3hWBzG2yg"
                 className="text-[#EFEFEF] hover:text-[#FFD700]"
                 aria-label="Visit our Instagram page"
+                target="_blank"
               >
-                <Instagram className="w-6 h-6" />
+                <FaInstagram className="size-6" />
+              </a>
+              <a
+                href="https://www.tiktok.com/@hunting_shooting_range?_t=ZS-8wABhaTKJRx&_r=1"
+                className="hover:text-[#FFD700]"
+                aria-label="Visit our Tiktok page"
+                target="_blank"
+              >
+                <FaTiktok className="size-6" />
               </a>
             </div>
           </div>
