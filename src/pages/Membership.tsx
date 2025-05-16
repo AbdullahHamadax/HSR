@@ -11,7 +11,7 @@ function Membership() {
     {
       title: "The Skilled Sniper",
       price: "2,500 EGP/month",
-      fullPrice: "7,000 EGP full price",
+      fullPrice: "5,000 EGP full price",
       tagline: "Perfect for beginners",
       icon: Target,
       features: [
@@ -30,7 +30,7 @@ function Membership() {
     {
       title: "The Skilled Hunter",
       price: "3,500 EGP/month",
-      fullPrice: "9,500 EGP full price",
+      fullPrice: "7,000 EGP full price",
       tagline: "Our most popular package",
       icon: Star,
       isPopular: true,
@@ -354,7 +354,7 @@ function Membership() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.5 }}
               whileHover="hover"
               whileTap="tap"
               variants={cardVariants}
@@ -430,7 +430,7 @@ function Membership() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
+                transition={{ duration: 0.5 }}
                 whileHover="hover"
                 whileTap="tap"
                 variants={cardVariants}

@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import {
   Calendar,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
   Clock,
   Crosshair,
   Medal,
@@ -9,16 +13,22 @@ import {
   Target,
   UserPlus,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import featuredPoster from "../images/FeaturedPoster.png";
+import vidFivePoster from "../images/VidFivePoster.webp";
+import vidFourPoster from "../images/VidFourPoster.webp";
 import vidOnePoster from "../images/VidOnePoster.webp";
+import vidSixPoster from "../images/VidSixPoster.webp";
 import vidTwoPoster from "../images/VidTwoPoster.webp";
 import bannerImage from "../images/banner3.webp";
 
 import featuredVideo from "../videos/Featured1.mp4";
 import vid1 from "../videos/Vid1.mp4";
 import vid3 from "../videos/Vid3.mp4";
+import vid4 from "../videos/Vid4.mp4";
+import vid5 from "../videos/Vid5.mp4";
+import vid6 from "../videos/Vid6.mp4";
 
 function About() {
   const visionItems = [
@@ -63,13 +73,69 @@ function About() {
       thumbnail: vidTwoPoster,
       videoUrl: vid3,
     },
+    {
+      id: "advanced-training",
+      title: "Advanced Training Sessions",
+      description:
+        "Watch our expert instructors demonstrate advanced shooting techniques and specialized training",
+      thumbnail: vidFourPoster,
+      videoUrl: vid4,
+    },
+    {
+      id: "competition-prep",
+      title: "Competition Preparation",
+      description:
+        "See how we prepare our members for competitive shooting events and challenges",
+      thumbnail: vidFivePoster,
+      videoUrl: vid5,
+    },
+    {
+      id: "customer-testimonials",
+      title: "Watch what our customers say about us",
+      description:
+        "Hear genuine experiences from our diverse community of members - from beginners to advanced shooters - sharing their journey and achievements with HSR",
+      thumbnail: vidSixPoster,
+      videoUrl: vid6,
+    },
   ];
 
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlayClick = (videoId: string) => {
-    setPlayingVideo(videoId);
+    setPlayingVideoId(videoId);
+    setIsPlaying(true);
   };
+
+  const handlePrevVideo = () => {
+    setCurrentVideoIndex((prev) => {
+      if (prev === 0) return 4;
+      return prev - 2;
+    });
+  };
+
+  const handleNextVideo = () => {
+    setCurrentVideoIndex((prev) => {
+      if (prev >= 4) return 0;
+      return prev + 2;
+    });
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying, playingVideoId]);
+
+  const totalDots = Math.ceil(videoContent.length / 2);
+  const currentDotIndex = Math.floor(currentVideoIndex / 2);
 
   return (
     <div className="bg-[#1C1C1C] text-white">
@@ -148,54 +214,119 @@ function About() {
             See Us In Action
           </h2>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {videoContent.map((video, index) => (
-              <motion.div
-                key={video.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="overflow-hidden transition-all rounded-lg border border-zinc-800 hover:border-[#FFD700]/30 bg-black/50"
+          <div className="relative">
+            <div className="flex justify-center mb-4 md:hidden">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handlePrevVideo}
+                className="p-2 text-[#FFD700] bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+                aria-label="Previous video"
               >
-                <div className="relative group">
-                  {playingVideo === video.id ? (
-                    <video
-                      className="object-cover w-full aspect-[25/30]"
-                      controls
-                      autoPlay
-                      onEnded={() => setPlayingVideo(null)}
-                    >
-                      <source src={video.videoUrl} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <>
-                      <img
-                        src={video.thumbnail}
-                        alt={`Thumbnail for ${video.title}`}
-                        className="object-cover w-full aspect-video"
-                      />
-                      <button
-                        onClick={() => handlePlayClick(video.id)}
-                        className="absolute inset-0 flex items-center justify-center transition-opacity bg-black/60 group-hover:bg-black/40"
-                        aria-label={`Play ${video.title} video`}
-                      >
-                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#B22222] shadow-lg">
-                          <Play className="w-6 h-6 text-[#FFD700]" />
-                        </div>
-                      </button>
-                    </>
-                  )}
-                </div>
-                <div className="p-4">
-                  <h3 className="mb-2 text-lg font-bold text-white">
-                    {video.title}
-                  </h3>
-                  <p className="text-zinc-400">{video.description}</p>
-                </div>
-              </motion.div>
-            ))}
+                <ChevronUp className="w-8 h-8" />
+              </motion.button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              {videoContent
+                .slice(currentVideoIndex, currentVideoIndex + 2)
+                .map((video) => (
+                  <motion.div
+                    key={video.id}
+                    className="overflow-hidden transition-all rounded-lg border border-zinc-800 hover:border-[#FFD700]/30 bg-black/50"
+                  >
+                    <div className="relative group">
+                      {playingVideoId === video.id ? (
+                        <video
+                          ref={videoRef}
+                          className="object-cover w-full aspect-[25/30]"
+                          controls
+                          onPlay={() => setIsPlaying(true)}
+                          onPause={() => setIsPlaying(false)}
+                          onEnded={() => {
+                            setPlayingVideoId(null);
+                            setIsPlaying(false);
+                          }}
+                        >
+                          <source src={video.videoUrl} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <>
+                          <img
+                            src={video.thumbnail}
+                            alt={`Thumbnail for ${video.title}`}
+                            className="object-cover w-full aspect-video"
+                          />
+                          <button
+                            onClick={() => handlePlayClick(video.id)}
+                            className="absolute inset-0 flex items-center justify-center transition-opacity bg-black/60 group-hover:bg-black/40"
+                            aria-label={`Play ${video.title} video`}
+                          >
+                            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#B22222] shadow-lg">
+                              <Play className="w-6 h-6 text-[#FFD700]" />
+                            </div>
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <h3 className="mb-2 text-lg font-bold text-white">
+                        {video.title}
+                      </h3>
+                      <p className="text-zinc-400">{video.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+            </div>
+
+            <div className="flex justify-center mt-4 md:hidden">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleNextVideo}
+                className="p-2 text-[#FFD700] bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+                aria-label="Next video"
+              >
+                <ChevronDown className="w-8 h-8" />
+              </motion.button>
+            </div>
+
+            <div className="absolute inset-y-0 z-10 items-center justify-between hidden pointer-events-none md:flex left-4 right-4 sm:-left-16 sm:-right-16">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handlePrevVideo}
+                className="p-2 pointer-events-auto text-[#FFD700] bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+                aria-label="Previous video"
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleNextVideo}
+                className="p-2 pointer-events-auto text-[#FFD700] bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+                aria-label="Next video"
+              >
+                <ChevronRight className="w-8 h-8" />
+              </motion.button>
+            </div>
+
+            <div className="flex items-center justify-center mt-6 space-x-2">
+              {Array.from({ length: totalDots }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentVideoIndex(index * 2)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    currentDotIndex === index
+                      ? "bg-[#FFD700]"
+                      : "bg-zinc-600 hover:bg-zinc-400"
+                  }`}
+                  aria-label={`Go to video set ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
 

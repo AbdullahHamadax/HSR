@@ -292,15 +292,17 @@ const Home = () => {
                   <Target className="w-6 h-6 text-[#B22222]" />
                   <p className="ml-3 text-lg">
                     Level One: Learn firearm safety, air gun mechanics, and
-                    build mid-range marksmanship. 3 months | 2,500 EGP/month.
-                    Special: 7,000 EGP upfront.
+                    build mid-range marksmanship. 2 months | 2,500 EGP/month.
+                    Special: 4,500 EGP instead of 5,000 EGP when you pay for 2
+                    months upfront.
                   </p>
                 </li>
                 <li className="flex items-start">
                   <Calendar className="w-6 h-6 text-[#B22222]" />
                   <p className="ml-3 text-lg">
                     Level Two: Precision, long-range shooting, and hunting
-                    scenarios. 3,500 EGP/month or 9,500 EGP upfront.
+                    scenarios. 3,500 EGP/month or 6,500 EGP instead of 7,000
+                    EGP.
                   </p>
                 </li>
                 <li className="flex items-start">
