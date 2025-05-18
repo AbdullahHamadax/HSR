@@ -19,7 +19,6 @@ import featuredPoster from "../images/FeaturedPoster.png";
 import vidFivePoster from "../images/VidFivePoster.webp";
 import vidFourPoster from "../images/VidFourPoster.webp";
 import vidOnePoster from "../images/VidOnePoster.webp";
-import vidSixPoster from "../images/VidSixPoster.webp";
 import vidTwoPoster from "../images/VidTwoPoster.webp";
 import bannerImage from "../images/banner3.webp";
 
@@ -28,7 +27,6 @@ import vid1 from "../videos/Vid1.mp4";
 import vid3 from "../videos/Vid3.mp4";
 import vid4 from "../videos/Vid4.mp4";
 import vid5 from "../videos/Vid5.mp4";
-import vid6 from "../videos/Vid6.mp4";
 
 function About() {
   const visionItems = [
@@ -88,14 +86,6 @@ function About() {
         "See how we prepare our members for competitive shooting events and challenges",
       thumbnail: vidFivePoster,
       videoUrl: vid5,
-    },
-    {
-      id: "customer-testimonials",
-      title: "Watch what our customers say about us",
-      description:
-        "Hear genuine experiences from our diverse community of members - from beginners to advanced shooters - sharing their journey and achievements with HSR",
-      thumbnail: vidSixPoster,
-      videoUrl: vid6,
     },
   ];
 
