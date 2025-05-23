@@ -6,6 +6,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Membership from "./pages/Membership";
+import './i18n';
+
 function App() {
   return (
     <Router>

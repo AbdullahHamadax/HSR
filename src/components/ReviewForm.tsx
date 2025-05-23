@@ -1,12 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ReviewFormProps {
   productName?: string;
 }
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   const [rating, setRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [comment, setComment] = useState<string>("");
@@ -47,10 +50,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
   const validateForm = (): boolean => {
     const newErrors: { comment?: string; rating?: string } = {};
     if (comment.length < 10) {
-      newErrors.comment = "Please enter at least 10 characters";
+      newErrors.comment = t("reviewForm.commentRequired");
     }
     if (rating === 0) {
-      newErrors.rating = "Please select a rating";
+      newErrors.rating = t("reviewForm.ratingRequired");
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -83,24 +86,27 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
     }
   };
 
+  const ratingLabels = t("reviewForm.ratingLabels", { returnObjects: true }) as string[];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="w-full p-6 mb-12 border rounded-lg shadow-lg bg-[#1C1C1C] border-zinc-800"
+      className={`w-full p-6 mb-12 border rounded-lg shadow-lg bg-[#1C1C1C] border-zinc-800 ${isRTL ? 'text-right' : ''}`}
+      dir={isRTL ? 'rtl' : 'ltr'}
     >
       <h2 className="mb-6 text-2xl font-bold text-[#FFD700]">
-        Rate {productName}
+        {t("reviewForm.title", { productName })}
       </h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label className="block mb-3 font-medium text-white">
-            Your Rating
+            {t("reviewForm.yourRating")}
           </label>
-          <div className="flex items-center">
+          <div className={`flex items-center ${isRTL ? 'justify-end' : ''}`}>
             {[1, 2, 3, 4, 5].map((star) => (
               <motion.button
                 key={star}
@@ -110,8 +116,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
                 onClick={() => handleRatingClick(star)}
                 onMouseEnter={() => setHoveredRating(star)}
                 onMouseLeave={() => setHoveredRating(0)}
-                className="mr-1 focus:outline-none"
-                aria-label={`Rate ${star} stars`}
+                className={`${isRTL ? 'ml-1' : 'mr-1'} focus:outline-none`}
+                aria-label={t("reviewForm.yourRating") + ` ${star}`}
               >
                 <Star
                   className={`w-8 h-8 transition-all duration-200 cursor-pointer ${
@@ -127,13 +133,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2 }}
-                className="ml-3 text-white"
+                className={`${isRTL ? 'mr-3' : 'ml-3'} text-white`}
               >
-                {
-                  ["Poor", "Fair", "Good", "Very Good", "Excellent!"][
-                    rating - 1
-                  ]
-                }
+                {ratingLabels[rating - 1]}
               </motion.span>
             )}
           </div>
@@ -154,14 +156,14 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
             htmlFor="comment"
             className="block mb-2 font-medium text-white"
           >
-            Your Review
+            {t("reviewForm.yourReview")}
           </label>
           <textarea
             id="comment"
             name="comment"
             value={comment}
             onChange={handleCommentChange}
-            placeholder="Tell us about your experience..."
+            placeholder={t("reviewForm.placeholder")}
             required
             minLength={10}
             className={`w-full p-3 min-h-24 border rounded-md bg-black/50 text-white placeholder-zinc-500 
@@ -179,13 +181,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
                 {errors.comment}
               </motion.p>
             ) : (
-              <p className="text-sm text-zinc-500">Minimum 10 characters</p>
+              <p className="text-sm text-zinc-500">{t("reviewForm.minChars")}</p>
             )}
-            <p className="text-sm text-zinc-500">{comment.length} characters</p>
+            <p className="text-sm text-zinc-500">{t("reviewForm.charCount", { count: comment.length })}</p>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
           <motion.button
             type="submit"
             disabled={submitted}
@@ -200,11 +202,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
           >
             {submitted ? (
               <span className="flex items-center">
-                <Check className="w-4 h-4 mr-2" />
-                Submitted
+                <Check className={`w-4 h-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
+                {t("reviewForm.submitted")}
               </span>
             ) : (
-              "Submit Review"
+              t("reviewForm.submit")
             )}
           </motion.button>
 
@@ -217,7 +219,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productName = "HSR" }) => {
                 transition={{ duration: 0.3 }}
                 className="text-sm font-medium text-[#FFD700]"
               >
-                Thanks for your review!
+                {t("reviewForm.thanks")}
               </motion.div>
             )}
           </AnimatePresence>

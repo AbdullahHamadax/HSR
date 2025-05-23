@@ -2,127 +2,78 @@ import { motion } from "framer-motion";
 import { Baby, Check, Crosshair, Shield, Star, Target } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Membership() {
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
   const [selectedTab, setSelectedTab] = useState("main");
 
   const membershipTiers = [
     {
-      title: "The Skilled Sniper",
-      price: "2,500 EGP/month",
-      fullPrice: "5,000 EGP full price",
-      tagline: "Perfect for beginners",
+      title: t("membership.tiers.skilledSniper.title"),
+      price: t("membership.tiers.skilledSniper.price"),
+      fullPrice: t("membership.tiers.skilledSniper.fullPrice"),
+      tagline: t("membership.tiers.skilledSniper.tagline"),
       icon: Target,
-      features: [
-        "2-month structured program",
-        "Safe firearm handling introduction",
-        "In-depth air gun knowledge",
-        "Foundational shooting techniques",
-        "Medium-range shooting practice",
-        "Final marksmanship proficiency",
-      ],
+      features: t("membership.tiers.skilledSniper.features", { returnObjects: true }) as string[],
       color: "#FFD700",
-      ageRange: "Ages 12 and above",
-      pdfInfo:
-        "Level One: Learn firearm safety, air gun mechanics, and build mid-range marksmanship. 3 months | 2,500 EGP/month. Special: 7,000 EGP when paying upfront (instead of 7,500 EGP).",
+      ageRange: t("membership.tiers.skilledSniper.ageRange"),
     },
     {
-      title: "The Skilled Hunter",
-      price: "3,500 EGP/month",
-      fullPrice: "7,000 EGP full price",
-      tagline: "Our most popular package",
+      title: t("membership.tiers.skilledHunter.title"),
+      price: t("membership.tiers.skilledHunter.price"),
+      fullPrice: t("membership.tiers.skilledHunter.fullPrice"),
+      tagline: t("membership.tiers.skilledHunter.tagline"),
       icon: Star,
       isPopular: true,
-      features: [
-        "Advanced air gun expertise",
-        "Brand and caliber knowledge",
-        "Long-range precision training",
-        "Moving target engagement",
-        "Final assessment & academy certificate",
-        "PCP rifle operation certification",
-        "Facility access & maintenance support",
-      ],
+      features: t("membership.tiers.skilledHunter.features", { returnObjects: true }) as string[],
       color: "#B22222",
-      ageRange: "Ages 12 and above",
-      pdfInfo:
-        "Level Two: Precision, long-range shooting, and hunting scenarios. 3,500 EGP/month or 9,500 EGP when paying upfront (instead of 10,500 EGP).",
+      ageRange: t("membership.tiers.skilledHunter.ageRange"),
     },
     {
-      title: "Private Training",
-      price: "7,000 EGP per person",
-      fullPrice: "13,500 EGP for two",
-      tagline: "One-on-one excellence",
+      title: t("membership.tiers.privateTraining.title"),
+      price: t("membership.tiers.privateTraining.price"),
+      fullPrice: t("membership.tiers.privateTraining.fullPrice"),
+      tagline: t("membership.tiers.privateTraining.tagline"),
       icon: Shield,
-      features: [
-        "12 personalized sessions",
-        "One-on-one professional instruction",
-        "Safety, accuracy, and hunting focus",
-        "Real-world scenario training",
-        "Ideal for individuals or pairs (max 2)",
-        "Flexible scheduling",
-        "Hands-on coaching by experts",
-      ],
+      features: t("membership.tiers.privateTraining.features", { returnObjects: true }) as string[],
       color: "#FFD700",
-      ageRange: "Ages 12 and above",
-      pdfInfo:
-        "12 personalized sessions. Our exclusive private training course for hunters and shooting enthusiasts. Professional instruction with focus on safety, accuracy and advanced techniques.",
+      ageRange: t("membership.tiers.privateTraining.ageRange"),
     },
   ];
 
   const additionalPrograms = [
     {
-      title: "Children's Recreational Course",
-      price: "1,500 EGP/month",
-      fullPrice: "4,000 EGP full price",
-      tagline: "For young enthusiasts",
+      title: t("membership.children.title"),
+      price: t("membership.children.price"),
+      fullPrice: t("membership.children.fullPrice"),
+      tagline: t("membership.children.tagline"),
       icon: Baby,
-      features: [
-        "For ages 8-14 years",
-        "4 sessions per month (weekly)",
-        "Fun and engaging approach",
-        "Fundamentals of target shooting",
-        "Parent supervision required",
-        "Safe environment and equipment",
-      ],
+      features: t("membership.children.features", { returnObjects: true }) as string[],
       color: "#1E90FF",
-      ageRange: "Ages 8-14",
-      pdfInfo:
-        "Four training sessions per month, held once a week. The total cost is 1,500 EGP monthly or 4,000 EGP for three months paid upfront (instead of 4,500 EGP).",
+      ageRange: t("membership.children.ageRange"),
     },
   ];
 
   const recreationalOptions = [
     {
-      title: "Shooting Lane Rental",
-      price: "500 EGP / 30 min",
-      fullPrice: "950 EGP / hour",
-      tagline: "Bring your own equipment",
+      title: t("membership.recreational.laneRental.title"),
+      price: t("membership.recreational.laneRental.price"),
+      fullPrice: t("membership.recreational.laneRental.fullPrice"),
+      tagline: t("membership.recreational.laneRental.tagline"),
       icon: Crosshair,
-      features: [
-        "Use your personal firearm & ammunition",
-        "30 minutes: 500 EGP",
-        "1 hour (discounted): 950 EGP",
-        "Professional supervision",
-        "Safe and regulated environment",
-        "Available for all skill levels",
-      ],
+      features: t("membership.recreational.laneRental.features", { returnObjects: true }) as string[],
       color: "#4682B4",
     },
     {
-      title: "Recreational Shooting",
-      price: "200-300 EGP",
-      fullPrice: "+100 EGP for Red Dot",
-      tagline: "Quick fun sessions",
+      title: t("membership.recreational.shooting.title"),
+      price: t("membership.recreational.shooting.price"),
+      fullPrice: t("membership.recreational.shooting.fullPrice"),
+      tagline: t("membership.recreational.shooting.tagline"),
       icon: Target,
-      features: [
-        "Spring rifle shooting (15 rounds)",
-        "Price varies based on floor level",
-        "200-300 EGP per session",
-        "Additional 100 EGP for Red Dot Sight",
-        "No prior experience needed",
-        "Great for beginners",
-      ],
+      features: t("membership.recreational.shooting.features", { returnObjects: true }) as string[],
       color: "#4682B4",
     },
   ];
@@ -153,7 +104,7 @@ function Membership() {
   };
 
   return (
-    <div className="px-4 py-16 text-white bg-[#1C1C1C]">
+    <div className={`px-4 py-16 text-white bg-[#1C1C1C]${isRTL ? ' text-right' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="relative mb-16 overflow-hidden">
         <div className="relative px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
@@ -163,14 +114,13 @@ function Membership() {
             className="text-center"
           >
             <h1 className="text-4xl font-bold text-[#FFD700] mb-4">
-              Membership Plans
+              {t("membership.title")}
             </h1>
             <p className="max-w-2xl mx-auto text-xl text-zinc-400">
-              Choose the perfect program to elevate your shooting or hunting
-              skills — whether you're starting out or going pro.
+              {t("membership.subtitle")}
             </p>
             <p className="mt-4 text-xl italic text-zinc-300">
-              "A true marksman masters the wind, not fears it."
+              {t("membership.quote")}
             </p>
           </motion.div>
         </div>
@@ -186,7 +136,7 @@ function Membership() {
                 : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
             }`}
           >
-            Main Programs
+            {t("membership.tabs.main")}
           </button>
           <button
             onClick={() => setSelectedTab("children")}
@@ -196,7 +146,7 @@ function Membership() {
                 : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
             }`}
           >
-            Children's Programs
+            {t("membership.tabs.children")}
           </button>
           <button
             onClick={() => setSelectedTab("recreational")}
@@ -206,7 +156,7 @@ function Membership() {
                 : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
             }`}
           >
-            Recreational Options
+            {t("membership.tabs.recreational")}
           </button>
         </div>
 
@@ -234,13 +184,13 @@ function Membership() {
               >
                 {tier.isPopular && (
                   <div className="absolute top-0 right-0 px-3 py-1 text-xs font-medium text-black translate-y-0 translate-x-0 bg-[#FFD700] rounded-bl-lg rounded-tr-lg">
-                    Most Popular
+                    {t("membership.tiers.skilledHunter.tagline")}
                   </div>
                 )}
 
-                <div className="flex items-center mb-4">
+                <div className={`flex items-center mb-4${isRTL ? ' flex-row-reverse' : ''}`}>
                   <div
-                    className={`p-2 mr-3 rounded-full bg-${
+                    className={`p-2 ${isRTL ? 'ml-3' : 'mr-3'} rounded-full bg-${
                       tier.color === "#FFD700" ? "[#FFD700]" : "[#B22222]"
                     }/10`}
                   >
@@ -270,7 +220,7 @@ function Membership() {
 
                 <ul className="flex-grow mb-6 space-y-3">
                   {tier.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start space-x-2">
+                    <li key={idx} className={`flex items-start${isRTL ? ' flex-row-reverse' : ''} ${isRTL ? 'space-x-reverse' : ''} space-x-2`}>
                       <Check
                         className={`w-5 h-5 mt-0.5 text-${
                           tier.color === "#FFD700" ? "[#FFD700]" : "[#B22222]"
@@ -286,7 +236,7 @@ function Membership() {
                   className="block w-full py-3 text-center font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  Inquire About This Plan
+                  {t("membership.buttons.inquire")}
                 </Link>
               </motion.div>
             ))}
@@ -307,8 +257,8 @@ function Membership() {
                 variants={cardVariants}
                 className="relative flex flex-col h-full p-6 rounded-lg cursor-pointer border border-zinc-800 bg-[#1C1C1C]"
               >
-                <div className="flex items-center mb-4">
-                  <div className="p-2 mr-3 rounded-full bg-[#1E90FF]/10">
+                <div className={`flex items-center mb-4${isRTL ? ' flex-row-reverse' : ''}`}>
+                  <div className={`p-2 ${isRTL ? 'ml-3' : 'mr-3'} rounded-full bg-[#1E90FF]/10`}>
                     <program.icon className="w-6 h-6 text-[#1E90FF]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">
@@ -333,7 +283,7 @@ function Membership() {
 
                 <ul className="flex-grow mb-6 space-y-3">
                   {program.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start space-x-2">
+                    <li key={idx} className={`flex items-start${isRTL ? ' flex-row-reverse' : ''} ${isRTL ? 'space-x-reverse' : ''} space-x-2`}>
                       <Check className="w-5 h-5 mt-0.5 text-[#1E90FF]" />
                       <span className="text-zinc-300">{feature}</span>
                     </li>
@@ -345,7 +295,7 @@ function Membership() {
                   className="block w-full py-3 text-center font-medium text-white transition duration-300 bg-[#1E90FF] rounded-md hover:bg-[#FFD700] hover:text-black"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  Inquire About Children's Program
+                  {t("membership.buttons.inquireChildren")}
                 </Link>
               </motion.div>
             ))}
@@ -361,54 +311,37 @@ function Membership() {
               className="relative flex flex-col h-full p-6 rounded-lg cursor-pointer border border-zinc-800 bg-[#1C1C1C] md:col-span-2"
             >
               <h3 className="mb-4 text-2xl font-bold text-[#1E90FF]">
-                About Our Children's Program
+                {t("membership.children.aboutTitle")}
               </h3>
               <p className="mb-6 text-zinc-300">
-                Our recreational shooting course for children is specially
-                designed to foster joy and excitement while teaching the
-                fundamentals of target shooting in a safe, controlled
-                environment.
+                {t("membership.children.aboutDesc")}
               </p>
 
               <div className="p-4 mb-6 rounded-lg bg-black/40">
                 <h4 className="mb-2 text-lg font-semibold text-[#FFD700]">
-                  Safety First
+                  {t("membership.children.safetyTitle")}
                 </h4>
                 <p className="text-zinc-400">
-                  All children are constantly supervised by our professional
-                  instructors, with mandatory parent presence throughout the
-                  sessions. We use appropriate, age-specific equipment to ensure
-                  both safety and enjoyment.
+                  {t("membership.children.safetyDesc")}
                 </p>
               </div>
 
               <div className="p-4 mb-6 rounded-lg bg-black/40">
                 <h4 className="mb-2 text-lg font-semibold text-[#FFD700]">
-                  Program Benefits
+                  {t("membership.children.benefitsTitle")}
                 </h4>
                 <ul className="space-y-2 text-zinc-400">
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 mt-0.5 text-[#1E90FF]" />
-                    <span>Develops focus and discipline</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 mt-0.5 text-[#1E90FF]" />
-                    <span>Improves hand-eye coordination</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 mt-0.5 text-[#1E90FF]" />
-                    <span>Builds confidence through skill mastery</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 mt-0.5 text-[#1E90FF]" />
-                    <span>Creates lasting bonds through shared activities</span>
-                  </li>
+                  {(t("membership.children.benefits", { returnObjects: true }) as string[]).map((benefit, idx) => (
+                    <li key={idx} className={`flex items-start${isRTL ? ' flex-row-reverse' : ''} ${isRTL ? 'space-x-reverse' : ''} space-x-2`}>
+                      <Check className="w-5 h-5 mt-0.5 text-[#1E90FF]" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
               <p className="mt-auto italic text-zinc-300">
-                "This program aims to foster happiness and excitement among
-                children while teaching valuable skills in a safe environment."
+                {t("membership.children.quote")}
               </p>
 
               <Link
@@ -416,7 +349,7 @@ function Membership() {
                 className="block w-full py-3 mt-6 text-center font-medium text-white transition duration-300 bg-[#1E90FF] rounded-md hover:bg-[#FFD700] hover:text-black"
                 onClick={(e) => e.stopPropagation()}
               >
-                Contact Us About Children's Programs
+                {t("membership.buttons.contactChildren")}
               </Link>
             </motion.div>
           </div>
@@ -436,8 +369,8 @@ function Membership() {
                 variants={cardVariants}
                 className="relative flex flex-col h-full p-6 rounded-lg cursor-pointer border border-zinc-800 bg-[#1C1C1C]"
               >
-                <div className="flex items-center mb-4">
-                  <div className="p-2 mr-3 rounded-full bg-[#4682B4]/10">
+                <div className={`flex items-center mb-4${isRTL ? ' flex-row-reverse' : ''}`}>
+                  <div className={`p-2 ${isRTL ? 'ml-3' : 'mr-3'} rounded-full bg-[#4682B4]/10`}>
                     <option.icon className="w-6 h-6 text-[#4682B4]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">
@@ -459,7 +392,7 @@ function Membership() {
 
                 <ul className="flex-grow mb-6 space-y-3">
                   {option.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start space-x-2">
+                    <li key={idx} className={`flex items-start${isRTL ? ' flex-row-reverse' : ''} ${isRTL ? 'space-x-reverse' : ''} space-x-2`}>
                       <Check className="w-5 h-5 mt-0.5 text-[#4682B4]" />
                       <span className="text-zinc-300">{feature}</span>
                     </li>
@@ -471,7 +404,7 @@ function Membership() {
                   className="block w-full py-3 text-center font-medium text-white transition duration-300 bg-[#4682B4] rounded-md hover:bg-[#FFD700] hover:text-black"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  Book This Option
+                  {t("membership.buttons.book")}
                 </Link>
               </motion.div>
             ))}
@@ -480,43 +413,12 @@ function Membership() {
 
         <div className="mt-20">
           <h2 className="mb-8 text-3xl font-bold text-center text-[#FFD700]">
-            Frequently Asked Questions
+            {t("membership.faq.title")}
           </h2>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {[
-              {
-                question: "What equipment do I need to bring?",
-                answer:
-                  "All necessary equipment is provided including air guns, targets, and safety gear. You're welcome to bring your own equipment if you prefer, subject to our safety officers' approval.",
-              },
-              {
-                question: "Are there age restrictions?",
-                answer:
-                  "For main programs, members must preferably be 12 years or older. We offer supervised junior programs for ages 8-14 with parental consent and presence required throughout the sessions.",
-              },
-              {
-                question: "How long are the membership terms?",
-                answer:
-                  "Our programs run on 3-month cycles, but we offer flexible options for private training and corporate events.",
-              },
-              {
-                question: "Is prior experience required?",
-                answer:
-                  "No prior experience is necessary. Our 'Skilled Sniper' program is designed specifically for beginners with comprehensive safety training.",
-              },
-              {
-                question: "What are the shooting lane rental options?",
-                answer:
-                  "You can rent a lane for your personal firearm and ammunition for 30 minutes (500 EGP) or 1 hour (950 EGP, discounted from 1,000 EGP).",
-              },
-              {
-                question: "Do you offer any recreational shooting options?",
-                answer:
-                  "Yes, we offer spring rifle shooting (15 rounds) ranging from 200-300 EGP based on the floor level. An additional fee of 100 EGP applies for using rifles with Red Dot Sight.",
-              },
-            ].map((faq) => (
-              <div className="p-6 rounded-lg border border-zinc-800 bg-[#1C1C1C]">
+            {(t("membership.faq.questions", { returnObjects: true }) as { question: string; answer: string }[]).map((faq, index) => (
+              <div key={index} className="p-6 rounded-lg border border-zinc-800 bg-[#1C1C1C]">
                 <h3 className="mb-3 text-xl font-semibold text-[#FFD700]">
                   {faq.question}
                 </h3>

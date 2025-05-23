@@ -7,6 +7,7 @@ import {
 import { Award, Calendar, Star, Target, Users } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import ReviewForm from "../components/ReviewForm";
 import gun from "../images/AK-47.svg";
@@ -14,6 +15,7 @@ import banner from "../images/banner.webp";
 import banner2 from "../images/banner2.webp";
 
 const Home = () => {
+  const { t, i18n } = useTranslation();
   const shouldReduceMotion = useReducedMotion();
   const { scrollY } = useScroll();
   // eslint-disable-next-line no-empty-pattern
@@ -39,35 +41,19 @@ const Home = () => {
     }),
   };
 
-  const testimonials = [
-    {
-      name: "Ahmed H.",
-      rating: 5,
-      text: "The instructors are world-class. I've improved my accuracy by 40% since joining. The safety protocols give me peace of mind while training.",
-      position: "Member for 8 months",
-    },
-    {
-      name: "Abeer I.",
-      rating: 5,
-      text: "As a beginner, I was nervous at first, but the patient instructors and supportive community made me feel welcome. Now I can't imagine my weekends without HSR!",
-      position: "Member for 3 months",
-    },
-    {
-      name: "Omar K.",
-      rating: 4,
-      text: "Professional training with real-world applications. The facilities are top-notch and the community is incredibly supportive. Highly recommend for all skill levels.",
-      position: "Member for 1 year",
-    },
-  ];
+  const testimonials = t("home.testimonials.items", { returnObjects: true }) as any[];
+  // Ensure rating is a number
+  const safeTestimonials = testimonials.map((item) => ({ ...item, rating: Number(item.rating) }));
 
   const stats = [
-    { value: 2000, label: "Active Members", icon: Users },
-    { value: 4.8, label: "Star Rating", icon: Star, decimal: true },
-    { value: 250, label: "Training Hours", icon: Target },
-    { value: 15, label: "Certified Instructors", icon: Award },
+    { value: 2000, label: t("home.stats.activeMembers"), icon: Users },
+    { value: 4.8, label: t("home.stats.starRating"), icon: Star, decimal: true },
+    { value: 250, label: t("home.stats.trainingHours"), icon: Target },
+    { value: 15, label: t("home.stats.instructors"), icon: Award },
   ];
 
   const renderStars = (rating: number) => {
+    const numRating = Number(rating);
     return Array(5)
       .fill(0)
       .map((_, i) => (
@@ -78,8 +64,8 @@ const Home = () => {
           transition={{ delay: 0.05 * i, duration: 0.2 }} // Faster star animations
         >
           <Star
-            fill={i < rating ? "#FFD700" : "none"}
-            stroke={i < rating ? "#FFD700" : "#6b7280"}
+            fill={i < numRating ? "#FFD700" : "none"}
+            stroke={i < numRating ? "#FFD700" : "#6b7280"}
             className="w-5 h-5"
           />
         </motion.div>
@@ -146,7 +132,7 @@ const Home = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Master the Shot
+                {t("home.hero.title1")}
               </motion.span>{" "}
               <motion.span
                 className="text-[#B22222]"
@@ -154,7 +140,7 @@ const Home = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                with Precision
+                {t("home.hero.title2")}
               </motion.span>
             </h1>
             <motion.p
@@ -163,7 +149,7 @@ const Home = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.0 }}
             >
-              Begin your journey with elite training and real-world readiness.
+              {t("home.hero.subtitle")}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -174,7 +160,7 @@ const Home = () => {
                 to="/membership"
                 className="px-8 py-3 mt-4 text-lg font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black shadow-lg hover:shadow-xl hover:shadow-[#FFD700]/20"
               >
-                Become a Member
+                {t("home.hero.cta")}
               </Link>
             </motion.div>
           </motion.div>
@@ -200,14 +186,21 @@ const Home = () => {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.2 + i * 0.1, duration: 0.3 }} // Faster animation
-                  className="mb-1 text-4xl font-bold text-[#FFD700]"
+                  transition={{ delay: i * 0.1 + 0.2, duration: 0.3 }}
+                  className="text-3xl font-bold text-[#FFD700]"
                 >
-                  {stat.decimal ? stat.value : stat.value.toLocaleString()}
+                  {stat.value}
+                  {stat.decimal ? "" : "+"}
                 </motion.span>
-                <span className="text-sm font-medium text-zinc-400">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 + 0.3, duration: 0.3 }}
+                  className="mt-2 text-sm text-zinc-400"
+                >
                   {stat.label}
-                </span>
+                </motion.span>
               </motion.div>
             ))}
           </div>
@@ -223,13 +216,12 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="mb-12 text-3xl font-bold text-center text-white md:text-4xl"
           >
-            What Our Members Say
+            {t("home.testimonials.title")}
           </motion.h2>
-
           <div className="relative mt-10">
             <div className="relative flex overflow-hidden">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                {testimonials.map((testimonial, i) => (
+                {safeTestimonials.map((testimonial: any, i: number) => (
                   <motion.div
                     key={i}
                     custom={i}
@@ -239,7 +231,7 @@ const Home = () => {
                     viewport={{ once: true, margin: "-50px" }}
                     whileHover={{
                       scale: 1.03,
-                      transition: { duration: 0.2 }, // Fast hover animation
+                      transition: { duration: 0.2 },
                       boxShadow: "0 10px 25px -5px rgba(255, 215, 0, 0.1)",
                     }}
                     className="flex flex-col p-6 bg-black border rounded-lg shadow-lg border-zinc-800"
@@ -261,12 +253,11 @@ const Home = () => {
               </div>
             </div>
           </div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }} // Reduced delay
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-12 text-center"
           >
             <a
@@ -274,7 +265,7 @@ const Home = () => {
               className="px-6 py-3 text-lg font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black inline-flex items-center"
             >
               <Star className="w-5 h-5 mr-2" fill="#FFD700" />
-              Share Your Experience
+              {t("home.review.title")}
             </a>
           </motion.div>
         </div>
@@ -285,39 +276,24 @@ const Home = () => {
           <div className="grid items-center grid-cols-1 gap-12 md:grid-cols-2">
             <div>
               <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
-                Membership Benefits
+                {t("home.benefits.title")}
               </h2>
               <ul className="space-y-4 text-zinc-300">
                 <li className="flex items-start">
                   <Target className="w-6 h-6 text-[#B22222]" />
-                  <p className="ml-3 text-lg">
-                    Level One: Learn firearm safety, air gun mechanics, and
-                    build mid-range marksmanship. 2 months | 2,500 EGP/month.
-                    Special: 4,500 EGP instead of 5,000 EGP when you pay for 2
-                    months upfront.
-                  </p>
+                  <p className="ml-3 text-lg">{t("home.benefits.levelOne")}</p>
                 </li>
                 <li className="flex items-start">
                   <Calendar className="w-6 h-6 text-[#B22222]" />
-                  <p className="ml-3 text-lg">
-                    Level Two: Precision, long-range shooting, and hunting
-                    scenarios. 3,500 EGP/month or 6,500 EGP instead of 7,000
-                    EGP.
-                  </p>
+                  <p className="ml-3 text-lg">{t("home.benefits.levelTwo")}</p>
                 </li>
                 <li className="flex items-start">
                   <Award className="w-6 h-6 text-[#FFD700]" />
-                  <p className="ml-3 text-lg">
-                    Academy certification and access to maintenance, gear
-                    discounts, and shooting lanes.
-                  </p>
+                  <p className="ml-3 text-lg">{t("home.benefits.certification")}</p>
                 </li>
                 <li className="flex items-start">
                   <Users className="w-6 h-6 text-[#B22222]" />
-                  <p className="ml-3 text-lg">
-                    Partner-friendly training, group programs, and a vibrant
-                    shooting community.
-                  </p>
+                  <p className="ml-3 text-lg">{t("home.benefits.community")}</p>
                 </li>
               </ul>
               <div className="mt-8">
@@ -325,7 +301,7 @@ const Home = () => {
                   to="/membership"
                   className="px-6 py-3 text-lg font-medium text-white transition duration-300 bg-[#B22222] rounded-md hover:bg-[#FFD700] hover:text-black"
                 >
-                  View Membership Options
+                  {t("home.benefits.cta")}
                 </Link>
               </div>
             </div>
@@ -355,14 +331,12 @@ const Home = () => {
             className="mb-12 text-center"
           >
             <h2 className="mb-4 text-3xl font-bold text-[#FFD700] md:text-4xl">
-              Share Your Experience
+              {t("home.review.title")}
             </h2>
             <p className="max-w-2xl mx-auto text-xl text-zinc-300">
-              Your feedback helps us improve and guides others in their shooting
-              journey.
+              {t("home.review.subtitle")}
             </p>
           </motion.div>
-
           <ReviewForm productName="Hunting Shooting Range" />
         </div>
       </section>

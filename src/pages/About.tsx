@@ -14,6 +14,7 @@ import {
   UserPlus,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import featuredPoster from "../images/FeaturedPoster.png";
 import vidFivePoster from "../images/VidFivePoster.webp";
@@ -31,73 +32,23 @@ import vid5 from "../videos/Vid5.mp4";
 import vid6 from "../videos/Vid6.mp4";
 
 function About() {
-  const visionItems = [
-    {
-      title: "Professional Training",
-      description:
-        "Expert instruction from skilled marksmen for all experience levels",
-      icon: Medal,
-    },
-    {
-      title: "Safe Environment",
-      description:
-        "Rigorous safety protocols and supervised shooting experiences",
-      icon: Shield,
-    },
-    {
-      title: "Precision Focus",
-      description: "Develop accuracy and technique through structured programs",
-      icon: Crosshair,
-    },
-    {
-      title: "Inclusive Community",
-      description: "Welcoming space for all ages from 8 to 60+ years",
-      icon: UserPlus,
-    },
-  ];
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
 
-  const videoContent = [
-    {
-      id: "equipment-showcase",
-      title: "Equipment & Instruction",
-      description:
-        "See our logo, professional firearms collection, and expert instructors preparing equipment",
-      thumbnail: vidOnePoster,
-      videoUrl: vid1,
-    },
-    {
-      id: "target-showcase",
-      title: "Target Practice Area",
-      description:
-        "Explore our various target setups designed for different skill levels and training objectives",
-      thumbnail: vidTwoPoster,
-      videoUrl: vid3,
-    },
-    {
-      id: "advanced-training",
-      title: "Advanced Training Sessions",
-      description:
-        "Watch our expert instructors demonstrate advanced shooting techniques and specialized training",
-      thumbnail: vidFourPoster,
-      videoUrl: vid4,
-    },
-    {
-      id: "competition-prep",
-      title: "Competition Preparation",
-      description:
-        "See how we prepare our members for competitive shooting events and challenges",
-      thumbnail: vidFivePoster,
-      videoUrl: vid5,
-    },
-    {
-      id: "customer-testimonials",
-      title: "Watch what our customers say about us",
-      description:
-        "Hear genuine experiences from our diverse community of members - from beginners to advanced shooters - sharing their journey and achievements with HSR",
-      thumbnail: vidSixPoster,
-      videoUrl: vid6,
-    },
-  ];
+  // Map icons and media to the translated arrays
+  const visionIcons = [Medal, Shield, Crosshair, UserPlus];
+  const visionItemsRaw = t("about.vision", { returnObjects: true }) as { title: string; description: string }[];
+  const visionItems = visionItemsRaw.map((item, idx) => ({ ...item, icon: visionIcons[idx] }));
+
+  const videoThumbnails = [vidOnePoster, vidTwoPoster, vidFourPoster, vidFivePoster, vidSixPoster];
+  const videoUrls = [vid1, vid3, vid4, vid5, vid6];
+  const videoContentRaw = t("about.videos", { returnObjects: true }) as { title: string; description: string }[];
+  const videoContent = videoContentRaw.map((item, idx) => ({
+    ...item,
+    id: `video-${idx}`,
+    thumbnail: videoThumbnails[idx],
+    videoUrl: videoUrls[idx],
+  }));
 
   const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -138,7 +89,7 @@ function About() {
   const currentDotIndex = Math.floor(currentVideoIndex / 2);
 
   return (
-    <div className="bg-[#1C1C1C] text-white">
+    <div className={`bg-[#1C1C1C] text-white${isRTL ? ' text-right' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="relative overflow-hidden">
         <div className="relative px-4 py-16 mx-auto sm:py-24 max-w-7xl sm:px-6 lg:px-8">
           <motion.h1
@@ -147,7 +98,7 @@ function About() {
             transition={{ duration: 0.8 }}
             className="mb-6 text-4xl sm:text-5xl font-bold text-center text-[#FFD700] md:text-6xl"
           >
-            About Us
+            {t("about.title")}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -155,7 +106,7 @@ function About() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="max-w-3xl mx-auto text-lg text-center sm:text-xl text-zinc-300"
           >
-            Precision is not luck — it's the result of relentless focus.{" "}
+            {t("about.subtitle")}
           </motion.p>
         </div>
       </div>
@@ -170,23 +121,11 @@ function About() {
             className="space-y-4 sm:space-y-6 text-zinc-300"
           >
             <h2 className="text-2xl sm:text-3xl font-bold text-[#FFD700]">
-              Our Mission
+              {t("about.missionTitle")}
             </h2>
-            <p className="text-base sm:text-lg">
-              At our range, precision and professionalism meet passion. We're
-              not just a shooting range — we are a community where beginners
-              become experts and marksmen become masters.
-            </p>
-            <p className="text-base sm:text-lg">
-              Our mission is to offer top-tier firearms training and
-              recreational shooting in a safe, inclusive, and cutting-edge
-              facility.
-            </p>
-            <p className="text-base sm:text-lg">
-              Whether you're pursuing sport, self-defense skills, or just an
-              adrenaline-filled hobby, you'll find support, expertise, and
-              camaraderie at every turn.
-            </p>
+            <p className="text-base sm:text-lg">{t("about.mission1")}</p>
+            <p className="text-base sm:text-lg">{t("about.mission2")}</p>
+            <p className="text-base sm:text-lg">{t("about.mission3")}</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -211,7 +150,7 @@ function About() {
           className="mt-16 sm:mt-24"
         >
           <h2 className="mb-8 sm:mb-12 text-2xl sm:text-3xl font-bold text-center text-[#FFD700]">
-            See Us In Action
+            {t("about.seeUs")}
           </h2>
 
           <div className="relative">
@@ -313,19 +252,21 @@ function About() {
               </motion.button>
             </div>
 
-            <div className="flex items-center justify-center mt-6 space-x-2">
-              {Array.from({ length: totalDots }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentVideoIndex(index * 2)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    currentDotIndex === index
-                      ? "bg-[#FFD700]"
-                      : "bg-zinc-600 hover:bg-zinc-400"
-                  }`}
-                  aria-label={`Go to video set ${index + 1}`}
-                />
-              ))}
+            <div className="flex items-center justify-center mt-6">
+              <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                {Array.from({ length: totalDots }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentVideoIndex(index * 2)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      currentDotIndex === index
+                        ? "bg-[#FFD700]"
+                        : "bg-zinc-600 hover:bg-zinc-400"
+                    }`}
+                    aria-label={`Go to video set ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
@@ -338,7 +279,7 @@ function About() {
           className="mt-16 sm:mt-24"
         >
           <h2 className="mb-8 sm:mb-12 text-2xl sm:text-3xl font-bold text-center text-[#FFD700]">
-            What we offer
+            {t("about.whatWeOffer")}
           </h2>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -367,7 +308,7 @@ function About() {
 
           <div className="p-6 mt-12 border rounded-lg sm:mt-16 bg-black/30 border-zinc-800">
             <h3 className="mb-4 text-xl sm:text-2xl font-bold text-center text-[#FFD700]">
-              Programs for All Ages
+              {t("about.programsTitle")}
             </h3>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <motion.div
@@ -378,25 +319,20 @@ function About() {
                 className="p-4 border rounded-lg bg-black/20 border-zinc-800"
               >
                 <h4 className="mb-2 text-lg font-bold text-white">
-                  Adults (12-60+)
+                  {t("about.adultsTitle")}
                 </h4>
                 <p className="mb-3 text-zinc-400">
-                  Professional training programs designed for all skill levels,
-                  from beginners to expert marksmen.
+                  {t("about.adultsDesc")}
                 </p>
                 <ul className="space-y-2 text-zinc-400">
-                  <li className="flex items-center">
-                    <Clock className="w-4 h-4 mr-2 text-[#FFD700]" />
-                    <span>Flexible monthly training options</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Target className="w-4 h-4 mr-2 text-[#FFD700]" />
-                    <span>Skilled Sniper and Hunter specializations</span>
-                  </li>
-                  <li className="flex items-center">
-                    <UserPlus className="w-4 h-4 mr-2 text-[#FFD700]" />
-                    <span>Private training sessions available</span>
-                  </li>
+                  {(t("about.adultsFeatures", { returnObjects: true }) as string[]).map((feature, idx) => (
+                    <li className={`flex items-center${isRTL ? ' flex-row-reverse' : ''}`} key={idx}>
+                      {idx === 0 && <Clock className={`w-4 h-4 text-[#FFD700]${isRTL ? ' ml-2' : ' mr-2'}`} />}
+                      {idx === 1 && <Target className={`w-4 h-4 text-[#FFD700]${isRTL ? ' ml-2' : ' mr-2'}`} />}
+                      {idx === 2 && <UserPlus className={`w-4 h-4 text-[#FFD700]${isRTL ? ' ml-2' : ' mr-2'}`} />}
+                      <span>{feature}</span>
+                    </li>
+                  ))}
                 </ul>
               </motion.div>
 
@@ -408,25 +344,20 @@ function About() {
                 className="p-4 border rounded-lg bg-black/20 border-zinc-800"
               >
                 <h4 className="mb-2 text-lg font-bold text-white">
-                  Children (8-14)
+                  {t("about.childrenTitle")}
                 </h4>
                 <p className="mb-3 text-zinc-400">
-                  Safe, educational, and fun recreational shooting courses
-                  specially designed for young enthusiasts.
+                  {t("about.childrenDesc")}
                 </p>
                 <ul className="space-y-2 text-zinc-400">
-                  <li className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-2 text-[#FFD700]" />
-                    <span>Weekly sessions (4 per month)</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Shield className="w-4 h-4 mr-2 text-[#FFD700]" />
-                    <span>Safety-first approach with close supervision</span>
-                  </li>
-                  <li className="flex items-center">
-                    <Target className="w-4 h-4 mr-2 text-[#FFD700]" />
-                    <span>Focus on fundamentals and enjoyment</span>
-                  </li>
+                  {(t("about.childrenFeatures", { returnObjects: true }) as string[]).map((feature, idx) => (
+                    <li className={`flex items-center${isRTL ? ' flex-row-reverse' : ''}`} key={idx}>
+                      {idx === 0 && <Calendar className={`w-4 h-4 text-[#FFD700]${isRTL ? ' ml-2' : ' mr-2'}`} />}
+                      {idx === 1 && <Shield className={`w-4 h-4 text-[#FFD700]${isRTL ? ' ml-2' : ' mr-2'}`} />}
+                      {idx === 2 && <Target className={`w-4 h-4 text-[#FFD700]${isRTL ? ' ml-2' : ' mr-2'}`} />}
+                      <span>{feature}</span>
+                    </li>
+                  ))}
                 </ul>
               </motion.div>
             </div>
@@ -442,7 +373,7 @@ function About() {
         >
           <div className="p-6 border rounded-lg bg-black/30 border-zinc-800">
             <h3 className="mb-6 text-xl sm:text-2xl font-bold text-center text-[#FFD700]">
-              Featured Video
+              {t("common.featuredVideo", "Featured Video")}
             </h3>
 
             <div className="relative w-full overflow-hidden rounded-lg aspect-[25/17]">
@@ -452,7 +383,7 @@ function About() {
                 poster={featuredPoster}
               >
                 <source src={featuredVideo} type="video/mp4" />
-                Your browser does not support the video tag.
+                {t("common.noVideoSupport", "Your browser does not support the video tag.")}
               </video>
             </div>
           </div>

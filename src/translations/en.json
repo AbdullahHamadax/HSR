@@ -1,0 +1,319 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "membership": "Membership"
+  },
+  "navbar": {
+    "title": "Hunting Shooting Range"
+  },
+  "footer": {
+    "title": "Hunting Shooting Range",
+    "description": "Your premier destination for professional shooting training and practice.",
+    "hours": "Hours",
+    "hoursText": "Saturday - Thursday: 4PM - 12AM",
+    "followUs": "Follow Us",
+    "copyright": "All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "title1": "Master the Shot",
+      "title2": "with Precision",
+      "subtitle": "Begin your journey with elite training and real-world readiness.",
+      "cta": "Become a Member"
+    },
+    "stats": {
+      "activeMembers": "Active Members",
+      "starRating": "Star Rating",
+      "trainingHours": "Training Hours",
+      "instructors": "Certified Instructors"
+    },
+    "testimonials": {
+      "title": "What Our Members Say",
+      "items": [
+        {
+          "name": "Ahmed H.",
+          "text": "The instructors are world-class. I've improved my accuracy by 40% since joining. The safety protocols give me peace of mind while training.",
+          "position": "Member for 8 months"
+        },
+        {
+          "name": "Abeer I.",
+          "text": "As a beginner, I was nervous at first, but the patient instructors and supportive community made me feel welcome. Now I can't imagine my weekends without HSR!",
+          "position": "Member for 3 months"
+        },
+        {
+          "name": "Omar K.",
+          "text": "Professional training with real-world applications. The facilities are top-notch and the community is incredibly supportive. Highly recommend for all skill levels.",
+          "position": "Member for 1 year"
+        }
+      ]
+    },
+    "benefits": {
+      "title": "Membership Benefits",
+      "levelOne": "Level One: Learn firearm safety, air gun mechanics, and build mid-range marksmanship. 2 months | 2,500 EGP/month. Special: 4,500 EGP instead of 5,000 EGP when you pay for 2 months upfront.",
+      "levelTwo": "Level Two: Precision, long-range shooting, and hunting scenarios. 3,500 EGP/month or 6,500 EGP instead of 7,000 EGP.",
+      "certification": "Academy certification and access to maintenance, gear discounts, and shooting lanes.",
+      "community": "Partner-friendly training, group programs, and a vibrant shooting community.",
+      "cta": "View Membership Options"
+    },
+    "review": {
+      "title": "Share Your Experience",
+      "subtitle": "Your feedback helps us improve and guides others in their shooting journey."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions? We're here to help. Reach out to us through any of the following channels.",
+    "location": "Location",
+    "locationContent": "Platinum club, Katameya Residence Compound, Naguib Mahfouz Axis, between gate 5 and 6 of AlNakheel Resort.",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Hours",
+    "hoursContent": "Saturday - Thursday: 4PM - 12AM",
+    "sendMessage": "Send Us a Message",
+    "name": "Name",
+    "namePlaceholder": "Ahmed Abdallah",
+    "emailPlaceholder": "youremail@email.com",
+    "phoneNumber": "Phone Number",
+    "phonePlaceholder": "+20 12345678910",
+    "message": "Message",
+    "messagePlaceholder": "Type your message here....",
+    "submit": "Send Message",
+    "success": "Thank you! Your message has been sent successfully.",
+    "error": "Failed to send message. Please try again later.",
+    "findUs": "Find Us",
+    "loadMap": "Click to load interactive map"
+  },
+  "reviewForm": {
+    "title": "Rate {{productName}}",
+    "yourRating": "Your Rating",
+    "ratingLabels": ["Poor", "Fair", "Good", "Very Good", "Excellent!"],
+    "ratingRequired": "Please select a rating",
+    "yourReview": "Your Review",
+    "placeholder": "Tell us about your experience...",
+    "commentRequired": "Please enter at least 10 characters",
+    "minChars": "Minimum 10 characters",
+    "charCount": "{{count}} characters",
+    "submit": "Submit Review",
+    "submitted": "Submitted",
+    "thanks": "Thanks for your review!"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Precision is not luck — it's the result of relentless focus.",
+    "missionTitle": "Our Mission",
+    "mission1": "At our range, precision and professionalism meet passion. We're not just a shooting range — we are a community where beginners become experts and marksmen become masters.",
+    "mission2": "Our mission is to offer top-tier firearms training and recreational shooting in a safe, inclusive, and cutting-edge facility.",
+    "mission3": "Whether you're pursuing sport, self-defense skills, or just an adrenaline-filled hobby, you'll find support, expertise, and camaraderie at every turn.",
+    "seeUs": "See Us In Action",
+    "videos": [
+      {
+        "title": "Equipment & Instruction",
+        "description": "See our logo, professional firearms collection, and expert instructors preparing equipment"
+      },
+      {
+        "title": "Target Practice Area",
+        "description": "Explore our various target setups designed for different skill levels and training objectives"
+      },
+      {
+        "title": "Advanced Training Sessions",
+        "description": "Watch our expert instructors demonstrate advanced shooting techniques and specialized training"
+      },
+      {
+        "title": "Competition Preparation",
+        "description": "See how we prepare our members for competitive shooting events and challenges"
+      },
+      {
+        "title": "Watch what our customers say about us",
+        "description": "Hear genuine experiences from our diverse community of members - from beginners to advanced shooters - sharing their journey and achievements with HSR"
+      }
+    ],
+    "whatWeOffer": "What we offer",
+    "vision": [
+      {
+        "title": "Professional Training",
+        "description": "Expert instruction from skilled marksmen for all experience levels"
+      },
+      {
+        "title": "Safe Environment",
+        "description": "Rigorous safety protocols and supervised shooting experiences"
+      },
+      {
+        "title": "Precision Focus",
+        "description": "Develop accuracy and technique through structured programs"
+      },
+      {
+        "title": "Inclusive Community",
+        "description": "Welcoming space for all ages from 8 to 60+ years"
+      }
+    ],
+    "programsTitle": "Programs for All Ages",
+    "adultsTitle": "Adults (12-60+)",
+    "adultsDesc": "Professional training programs designed for all skill levels, from beginners to expert marksmen.",
+    "adultsFeatures": [
+      "Flexible monthly training options",
+      "Skilled Sniper and Hunter specializations",
+      "Private training sessions available"
+    ],
+    "childrenTitle": "Children (8-14)",
+    "childrenDesc": "Safe, educational, and fun recreational shooting courses specially designed for young enthusiasts.",
+    "childrenFeatures": [
+      "Weekly sessions (4 per month)",
+      "Safety-first approach with close supervision",
+      "Focus on fundamentals and enjoyment"
+    ]
+  },
+  "membership": {
+    "title": "Membership Plans",
+    "subtitle": "Choose the perfect program to elevate your shooting or hunting skills — whether you're starting out or going pro.",
+    "quote": "A true marksman masters the wind, not fears it.",
+    "tabs": {
+      "main": "Main Programs",
+      "children": "Children's Programs",
+      "recreational": "Recreational Options"
+    },
+    "tiers": {
+      "skilledSniper": {
+        "title": "The Skilled Sniper",
+        "price": "2,500 EGP/month",
+        "fullPrice": "5,000 EGP full price",
+        "tagline": "Perfect for beginners",
+        "ageRange": "Ages 12 and above",
+        "features": [
+          "2-month structured program",
+          "Safe firearm handling introduction",
+          "In-depth air gun knowledge",
+          "Foundational shooting techniques",
+          "Medium-range shooting practice",
+          "Final marksmanship proficiency"
+        ]
+      },
+      "skilledHunter": {
+        "title": "The Skilled Hunter",
+        "price": "3,500 EGP/month",
+        "fullPrice": "7,000 EGP full price",
+        "tagline": "Our most popular package",
+        "ageRange": "Ages 12 and above",
+        "features": [
+          "Advanced air gun expertise",
+          "Brand and caliber knowledge",
+          "Long-range precision training",
+          "Moving target engagement",
+          "Final assessment & academy certificate",
+          "PCP rifle operation certification",
+          "Facility access & maintenance support"
+        ]
+      },
+      "privateTraining": {
+        "title": "Private Training",
+        "price": "7,000 EGP per person",
+        "fullPrice": "13,500 EGP for two",
+        "tagline": "One-on-one excellence",
+        "ageRange": "Ages 12 and above",
+        "features": [
+          "12 personalized sessions",
+          "One-on-one professional instruction",
+          "Safety, accuracy, and hunting focus",
+          "Real-world scenario training",
+          "Ideal for individuals or pairs (max 2)",
+          "Flexible scheduling",
+          "Hands-on coaching by experts"
+        ]
+      }
+    },
+    "children": {
+      "title": "Children's Recreational Course",
+      "price": "1,500 EGP/month",
+      "fullPrice": "4,000 EGP full price",
+      "tagline": "For young enthusiasts",
+      "ageRange": "Ages 8-14",
+      "features": [
+        "For ages 8-14 years",
+        "4 sessions per month (weekly)",
+        "Fun and engaging approach",
+        "Fundamentals of target shooting",
+        "Parent supervision required",
+        "Safe environment and equipment"
+      ],
+      "aboutTitle": "About Our Children's Program",
+      "aboutDesc": "Our recreational shooting course for children is specially designed to foster joy and excitement while teaching the fundamentals of target shooting in a safe, controlled environment.",
+      "safetyTitle": "Safety First",
+      "safetyDesc": "All children are constantly supervised by our professional instructors, with mandatory parent presence throughout the sessions. We use appropriate, age-specific equipment to ensure both safety and enjoyment.",
+      "benefitsTitle": "Program Benefits",
+      "benefits": [
+        "Develops focus and discipline",
+        "Improves hand-eye coordination",
+        "Builds confidence through skill mastery",
+        "Creates lasting bonds through shared activities"
+      ],
+      "quote": "This program aims to foster happiness and excitement among children while teaching valuable skills in a safe environment."
+    },
+    "recreational": {
+      "laneRental": {
+        "title": "Shooting Lane Rental",
+        "price": "500 EGP / 30 min",
+        "fullPrice": "950 EGP / hour",
+        "tagline": "Bring your own equipment",
+        "features": [
+          "Use your personal firearm & ammunition",
+          "30 minutes: 500 EGP",
+          "1 hour (discounted): 950 EGP",
+          "Professional supervision",
+          "Safe and regulated environment",
+          "Available for all skill levels"
+        ]
+      },
+      "shooting": {
+        "title": "Recreational Shooting",
+        "price": "200-300 EGP",
+        "fullPrice": "+100 EGP for Red Dot",
+        "tagline": "Quick fun sessions",
+        "features": [
+          "Spring rifle shooting (15 rounds)",
+          "Price varies based on floor level",
+          "200-300 EGP per session",
+          "Additional 100 EGP for Red Dot Sight",
+          "No prior experience needed",
+          "Great for beginners"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "questions": [
+        {
+          "question": "What equipment do I need to bring?",
+          "answer": "All necessary equipment is provided including air guns, targets, and safety gear. You're welcome to bring your own equipment if you prefer, subject to our safety officers' approval."
+        },
+        {
+          "question": "Are there age restrictions?",
+          "answer": "For main programs, members must preferably be 12 years or older. We offer supervised junior programs for ages 8-14 with parental consent and presence required throughout the sessions."
+        },
+        {
+          "question": "How long are the membership terms?",
+          "answer": "Our programs run on 3-month cycles, but we offer flexible options for private training and corporate events."
+        },
+        {
+          "question": "Is prior experience required?",
+          "answer": "No prior experience is necessary. Our 'Skilled Sniper' program is designed specifically for beginners with comprehensive safety training."
+        },
+        {
+          "question": "What are the shooting lane rental options?",
+          "answer": "You can rent a lane for your personal firearm and ammunition for 30 minutes (500 EGP) or 1 hour (950 EGP, discounted from 1,000 EGP)."
+        },
+        {
+          "question": "Do you offer any recreational shooting options?",
+          "answer": "Yes, we offer spring rifle shooting (15 rounds) ranging from 200-300 EGP based on the floor level. An additional fee of 100 EGP applies for using rifles with Red Dot Sight."
+        }
+      ]
+    },
+    "buttons": {
+      "inquire": "Inquire About This Plan",
+      "inquireChildren": "Inquire About Children's Program",
+      "contactChildren": "Contact Us About Children's Programs",
+      "book": "Book This Option"
+    }
+  }
+} 

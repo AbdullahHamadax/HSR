@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface FormState {
   name: string;
@@ -40,6 +41,7 @@ const ContactInfo = ({
 );
 
 function Contact() {
+  const { t } = useTranslation();
   const [formState, setFormState] = useState<FormState>({
     name: "",
     email: "",
@@ -67,22 +69,22 @@ function Contact() {
     const newErrors: Errors = {};
 
     if (!formState.name.trim()) {
-      newErrors.name = "Name is required";
+      newErrors.name = t("contact.name") + " " + t("common.required", "is required");
     }
 
     if (!formState.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = t("contact.email") + " " + t("common.required", "is required");
     } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
-      newErrors.email = "Email is invalid";
+      newErrors.email = t("common.invalidEmail", "Email is invalid");
     }
 
     // Phone validation - optional but if provided, must be valid
     if (formState.phone.trim() && !/^\+?\d{10,15}$/.test(formState.phone)) {
-      newErrors.phone = "Please enter a valid phone number";
+      newErrors.phone = t("common.invalidPhone", "Please enter a valid phone number");
     }
 
     if (!formState.message.trim()) {
-      newErrors.message = "Message is required";
+      newErrors.message = t("contact.message") + " " + t("common.required", "is required");
     }
 
     setErrors(newErrors);
@@ -119,7 +121,7 @@ function Contact() {
         setTimeout(() => setSubmitSuccess(false), 5000);
       } catch (error) {
         console.error("Error submitting form:", error);
-        setSubmitError("Failed to send message. Please try again later.");
+        setSubmitError(t("contact.error"));
       } finally {
         setIsSubmitting(false);
       }
@@ -134,40 +136,39 @@ function Contact() {
         transition={{ duration: 0.6 }}
         className="mb-12 text-center"
       >
-        <h1 className="text-4xl font-bold text-[#FFD700] mb-4">Contact Us</h1>
+        <h1 className="text-4xl font-bold text-[#FFD700] mb-4">{t("contact.title")}</h1>
         <p className="max-w-2xl mx-auto text-xl text-zinc-400">
-          Have questions? We're here to help. Reach out to us through any of the
-          following channels.
+          {t("contact.subtitle")}
         </p>
       </motion.div>
 
       <section aria-labelledby="contact-info" className="mb-12">
         <h2 id="contact-info" className="sr-only">
-          Contact Information
+          {t("contact.title")}
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <ContactInfo
             icon={MapPin}
-            title="Location"
-            content="Platinum club, Katameya Residence Compound, Naguib Mahfouz Axis, between gate 5 and 6 of AlNakheel Resort."
+            title={t("contact.location")}
+            content={t("contact.locationContent")}
           />
-          <ContactInfo icon={Phone} title="Phone" content="+20 1095492279" />
+          <ContactInfo icon={Phone} title={t("contact.phone")} content="+20 1095492279" />
           <ContactInfo
             icon={Mail}
-            title="Email"
+            title={t("contact.email")}
             content="Hsrhunting@gmail.com"
           />
           <ContactInfo
             icon={Clock}
-            title="Hours"
-            content="Saturday - Thursday: 4PM - 12AM"
+            title={t("contact.hours")}
+            content={t("contact.hoursContent")}
           />
         </div>
       </section>
 
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         <div>
-          <h2 className="mb-6 text-2xl font-bold">Send Us a Message</h2>
+          <h2 className="mb-6 text-2xl font-bold">{t("contact.sendMessage")}</h2>
           <form
             ref={formRef}
             className="space-y-6"
@@ -179,13 +180,13 @@ function Contact() {
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-zinc-300"
               >
-                Name
+                {t("contact.name")}
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Ahmed Abdallah"
+                placeholder={t("contact.namePlaceholder")}
                 autoComplete="name"
                 value={formState.name}
                 onChange={handleChange}
@@ -202,13 +203,13 @@ function Contact() {
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-zinc-300"
               >
-                Email
+                {t("contact.email")}
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                placeholder="youremail@email.com"
+                placeholder={t("contact.emailPlaceholder")}
                 autoComplete="email"
                 value={formState.email}
                 onChange={handleChange}
@@ -225,14 +226,14 @@ function Contact() {
                 htmlFor="phone"
                 className="block mb-2 text-sm font-medium text-zinc-300"
               >
-                Phone Number
+                {t("contact.phoneNumber")}
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
                 autoComplete="tel"
-                placeholder="+20 12345678910"
+                placeholder={t("contact.phonePlaceholder")}
                 value={formState.phone}
                 onChange={handleChange}
                 className={`w-full px-4 py-2 border rounded-md bg-[#1C1C1C] border-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#FFD700] ${
@@ -248,12 +249,12 @@ function Contact() {
                 htmlFor="message"
                 className="block mb-2 text-sm font-medium text-zinc-300"
               >
-                Message
+                {t("contact.message")}
               </label>
               <textarea
                 id="message"
                 name="message"
-                placeholder="Type your message here...."
+                placeholder={t("contact.messagePlaceholder")}
                 rows={4}
                 value={formState.message}
                 onChange={handleChange}
@@ -273,7 +274,7 @@ function Contact() {
               {isSubmitting ? (
                 <motion.div
                   role="status"
-                  aria-label="Sending message"
+                  aria-label={t("contact.submit")}
                   aria-live="polite"
                   animate={{ rotate: 360 }}
                   transition={{
@@ -285,7 +286,7 @@ function Contact() {
                 />
               ) : (
                 <>
-                  <Send className="w-5 h-5 mr-2" /> Send Message
+                  <Send className="w-5 h-5 mr-2" /> {t("contact.submit")}
                 </>
               )}
             </button>
@@ -295,7 +296,7 @@ function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-3 mt-4 text-center text-black bg-[#FFD700]/90 rounded-md"
               >
-                Thank you! Your message has been sent successfully.
+                {t("contact.success")}
               </motion.div>
             )}
             {submitError && (
@@ -311,15 +312,15 @@ function Contact() {
         </div>
 
         <div>
-          <h2 className="mb-6 text-2xl font-bold">Find Us</h2>
+          <h2 className="mb-6 text-2xl font-bold">{t("contact.findUs")}</h2>
           <div className="h-full min-h-[400px] bg-zinc-800 rounded-lg overflow-hidden shadow-lg border border-zinc-800">
             {!showMap ? (
               <button
                 onClick={() => setShowMap(true)}
                 className="w-full h-full flex items-center justify-center text-[#FFD700] text-lg font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
-                aria-label="Load map"
+                aria-label={t("contact.loadMap")}
               >
-                Click to load interactive map
+                {t("contact.loadMap")}
               </button>
             ) : (
               <iframe

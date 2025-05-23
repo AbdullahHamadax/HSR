@@ -2,10 +2,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import logo from "../images/logo.webp";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const linkStyle =
     "relative text-[#EFEFEF] hover:text-[#FFD700] font-medium transition-colors";
@@ -36,6 +39,14 @@ const Navbar = () => {
     open: { opacity: 1, y: 0 },
   };
 
+  let navLinks = [
+    { to: "/", label: t("common.home") },
+    { to: "/about", label: t("common.about") },
+    { to: "/membership", label: t("common.membership") },
+    { to: "/contact", label: t("common.contact") },
+  ];
+  if (i18n.language === 'ar') navLinks = navLinks.reverse();
+
   return (
     <nav className="sticky top-0 z-50 bg-black border-b border-[#B22222] shadow-lg shadow-black/20">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -48,18 +59,13 @@ const Navbar = () => {
             <NavLink to="/" className="flex items-center space-x-2">
               <img src={logo} className="w-12" alt="Logo" />
               <span className="text-xl font-bold text-[#FFD700]">
-                Hunting Shooting Range
+                {t("navbar.title")}
               </span>
             </NavLink>
           </motion.div>
 
-          <div className="hidden space-x-8 md:flex">
-            {[
-              { to: "/", label: "Home" },
-              { to: "/about", label: "About" },
-              { to: "/membership", label: "Membership" },
-              { to: "/contact", label: "Contact" },
-            ].map((link) => (
+          <div className={`hidden items-center md:flex ${i18n.language === 'ar' ? 'space-x-reverse space-x-8' : 'space-x-8'}`}>
+            {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
@@ -87,9 +93,10 @@ const Navbar = () => {
                 )}
               </NavLink>
             ))}
+            <LanguageSwitcher />
           </div>
 
-          <div className="md:hidden">
+          <div className="flex items-center space-x-4 md:hidden">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
@@ -114,13 +121,8 @@ const Navbar = () => {
               exit="closed"
               variants={menuVariants}
             >
-              <div className="px-2 pt-2 pb-3 space-y-1 border-t border-zinc-800">
-                {[
-                  { to: "/", label: "Home" },
-                  { to: "/about", label: "About" },
-                  { to: "/membership", label: "Membership" },
-                  { to: "/contact", label: "Contact" },
-                ].map((link) => (
+              <div className={`px-2 pt-2 pb-3 space-y-1 border-t border-zinc-800 ${i18n.language === 'ar' ? 'text-right' : ''}` }>
+                {navLinks.map((link) => (
                   <motion.div key={link.to} variants={itemVariants}>
                     <NavLink
                       to={link.to}
@@ -135,6 +137,9 @@ const Navbar = () => {
                     </NavLink>
                   </motion.div>
                 ))}
+                <motion.div variants={itemVariants} className="py-2 pl-3 pr-4">
+                  <LanguageSwitcher isMobile={true} />
+                </motion.div>
               </div>
             </motion.div>
           )}
