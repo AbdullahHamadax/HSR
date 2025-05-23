@@ -15,7 +15,7 @@ function Membership() {
       tagline: "Perfect for beginners",
       icon: Target,
       features: [
-        "3-month structured program",
+        "2-month structured program",
         "Safe firearm handling introduction",
         "In-depth air gun knowledge",
         "Foundational shooting techniques",
